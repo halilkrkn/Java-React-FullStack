@@ -8,7 +8,6 @@ import org.halilkrkn.oop.Product;
 public class Main {
     public static void main(String[] args) {
 
-        //Değişken isimlendirmeleri Java'da camelCase tekniğinde yazılır.
         String midText = "İlginizi çekebilir.";
         String subText = "Vade süresi";
 
@@ -34,8 +33,6 @@ public class Main {
             direction = "equal.svg";
             System.out.println(direction);
         }
-        //array
-        //gerçek hayatta bu veriler databaseden gelir :))
 
         String[] credits = {"Hızlı Kredi", "Maaşını HalkBank'tan Alanlar", "Mutlu Emekli"};
 
@@ -48,6 +45,8 @@ public class Main {
         }
 
         // **************************** OOP ******************************
+
+        System.out.println("************************ OOP *******************");
 
         Product product1 = new Product();
         product1.setName("Delonghi Coffee Machine");
