@@ -4,15 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9c46668-a0f8-4602-b139-b81074fe5293" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/halilkrkn/oop/CorporateCustomer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/halilkrkn/oop/Customer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/halilkrkn/oop/IndividualCustomer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/halilkrkn/oop/Product.java" afterDir="false" />
+    <list default="true" id="d9c46668-a0f8-4602-b139-b81074fe5293" name="Changes" comment="Base Java and OOP">
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/business/ProductManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/DatabaseLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/FileLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/Logger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/MailLogger.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/dataAccess/HibernateProductDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/dataAccess/JdbcProductDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/dataAccess/ProductDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/entities/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/halilkrkn/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/halilkrkn/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,12 +28,45 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="01-Java-Intro" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;halilkrkn&quot;
+  }
+}</component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="main" />
+      </list>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="halilkrkn" />
+        <option name="repository" value="Java-React-FullStack" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="18f50690-df2b-43bf-a55d-9cb6b6db38fc" />
+        <option name="url" value="https://github.com/halilkrkn/Java-React-FullStack" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -41,19 +80,46 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "01-Java-Intro",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "17",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "inlay.hints",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\halil\Github\Java-React-FullStack\Java-Intro\oopWithLayeredApp\src\main\java\org\halilkrkn" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.halilkrkn.Main" />
+      <module name="oopWithLayeredApp" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.halilkrkn.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -64,11 +130,35 @@
       <updated>1698068208194</updated>
       <workItem from="1698068209200" duration="5000" />
       <workItem from="1698221595141" duration="1381000" />
-      <workItem from="1698223552621" duration="858000" />
+      <workItem from="1698223552621" duration="1838000" />
+      <workItem from="1698242968256" duration="5882000" />
     </task>
+    <task id="LOCAL-00001" summary="Base Java and OOP">
+      <option name="closed" value="true" />
+      <created>1698224552603</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1698224552603</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Base Java and OOP">
+      <option name="closed" value="true" />
+      <created>1698224791908</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1698224791908</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Merge pull request #2&#10;&#10;Base Java and OOP" />
+    <MESSAGE value="Base Java and OOP" />
+    <option name="LAST_COMMIT_MESSAGE" value="Base Java and OOP" />
   </component>
 </project>
