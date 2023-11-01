@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9c46668-a0f8-4602-b139-b81074fe5293" name="Changes" comment="Base Java and OOP">
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/business/ProductManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/DatabaseLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/FileLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/Logger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/core/log/MailLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/dataAccess/HibernateProductDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/dataAccess/JdbcProductDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/dataAccess/ProductDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oopWithLayeredApp/src/main/java/org/halilkrkn/oopWithLayeredApp/entities/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-    </list>
+    <list default="true" id="d9c46668-a0f8-4602-b139-b81074fe5293" name="Changes" comment="OOP with Layered App" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,8 +28,6 @@
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;halilkrkn&quot;
   }
 }</component>
   <component name="GithubProjectSettings">
@@ -145,7 +128,8 @@
       <workItem from="1698068209200" duration="5000" />
       <workItem from="1698221595141" duration="1381000" />
       <workItem from="1698223552621" duration="1838000" />
-      <workItem from="1698242968256" duration="5882000" />
+      <workItem from="1698242968256" duration="6539000" />
+      <workItem from="1698838397071" duration="3000" />
     </task>
     <task id="LOCAL-00001" summary="Base Java and OOP">
       <option name="closed" value="true" />
@@ -163,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1698224791908</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="OOP with Layered App">
+      <option name="closed" value="true" />
+      <created>1698249178942</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1698249178942</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,6 +165,7 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Merge pull request #2&#10;&#10;Base Java and OOP" />
     <MESSAGE value="Base Java and OOP" />
-    <option name="LAST_COMMIT_MESSAGE" value="Base Java and OOP" />
+    <MESSAGE value="OOP with Layered App" />
+    <option name="LAST_COMMIT_MESSAGE" value="OOP with Layered App" />
   </component>
 </project>
