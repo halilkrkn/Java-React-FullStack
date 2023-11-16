@@ -1,0 +1,313 @@
+--26. Stokta bulunmayan ürünlerin ürün listesiyle birlikte tedarikçilerin ismi ve iletişim numarasını (`ProductID`, `ProductName`, `CompanyName`, `Phone`) almak için bir sorgu yazın.
+SELECT product_id, product_name, s.company_name, s.phone, units_in_stock FROM products p
+INNER JOIN suppliers s ON s.supplier_id = p.supplier_id
+WHERE units_in_stock = 0
+--27. 1998 yılı mart ayındaki siparişlerimin adresi, siparişi alan çalışanın adı, çalışanın soyadı
+SELECT order_date, ship_address, employees.first_name || ' ' || employees.last_name AS "AD SOYAD" FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+WHERE order_date BETWEEN '1998-03-01' AND '1998-03-31'
+
+--28. 1997 yılı şubat ayında kaç siparişim var?
+SELECT COUNT(order_details.quantity) FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE order_date BETWEEN '1997-02-01' AND '1997-02-28'
+
+--29. London şehrinden 1998 yılında kaç siparişim var?
+SELECT COUNT(order_details.quantity) FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE EXTRACT (YEAR FROM order_date) = 1998 AND ship_city = 'London'
+--30. 1997 yılında sipariş veren müşterilerimin contactname ve telefon numarası
+SELECT customers.contact_name, customers.phone FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+WHERE EXTRACT (YEAR FROM order_date) = 1997
+--31. Taşıma ücreti 40 üzeri olan siparişlerim
+SELECT * FROM orders
+WHERE freight > 40
+--32. Taşıma ücreti 40 ve üzeri olan siparişlerimin şehri, müşterisinin adı
+
+SELECT customers.city, customers.contact_name FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+WHERE freight >= 40
+--33. 1997 yılında verilen siparişlerin tarihi, şehri, çalışan adı -soyadı ( ad soyad birleşik olacak ve büyük harf)
+SELECT order_date, customers.city, UPPER(employees.first_name || ' ' || employees.last_name) AS "Ad Soyad" FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+WHERE order_date BETWEEN '1997-01-01' AND '1997-12-31'
+--34. 1997 yılında sipariş veren müşterilerin contactname i, ve telefon numaraları ( telefon formatı 2223322 gibi olmalı )
+SELECT customers.contact_name,  REGEXP_REPLACE(customers.phone, '[^0-9]', '', 'g')  FROM orders 
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+WHERE order_date BETWEEN '1997-01-01' AND '1997-12-31'
+--35. Sipariş tarihi, müşteri contact name, çalışan ad, çalışan soyad
+SELECT order_date, customers.contact_name, employees.first_name, employees.last_name FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+--36. Geciken siparişlerim?
+SELECT * FROM orders
+WHERE required_date < shipped_date
+
+--37. Geciken siparişlerimin tarihi, müşterisinin adı
+SELECT order_date, customers.company_name  FROM orders
+INNER JOIN customers ON orders.customer_id = customers.customer_id
+WHERE required_date < shipped_date
+--38. 10248 nolu siparişte satılan ürünlerin adı, kategorisinin adı, adedi
+SELECT product_name, order_details.order_id, order_details.quantity, categories.category_name FROM products
+INNER JOIN categories ON products.category_id = categories.category_id
+INNER JOIN order_details ON products.product_id = order_details.product_id
+WHERE order_id = '10248'
+--39. 10248 nolu siparişin ürünlerinin adı , tedarikçi adı
+SELECT product_name, order_details.order_id, suppliers.company_name FROM products
+INNER JOIN suppliers ON products.supplier_id = suppliers.supplier_id
+INNER JOIN order_details ON products.product_id = order_details.product_id
+WHERE order_id = '10248'
+
+--40. 3 numaralı ID ye sahip çalışanın 1997 yılında sattığı ürünlerin adı ve adeti
+SELECT  employees.employee_id, products.product_name, order_date, order_details.product_id, order_details.quantity FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN products ON order_details.product_id = products.product_id
+WHERE EXTRACT(YEAR FROM order_date) = 1997 AND employees.employee_id = '3'
+--41. 1997 yılında bir defasinda en çok satış yapan çalışanımın ID,Ad soyad
+SELECT order_date, order_details.quantity, employees.employee_id, employees.first_name || ' ' || employees.last_name AS "Ad Soyad" FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE EXTRACT(YEAR FROM order_date) = 1997 
+ORDER BY order_details.quantity DESC
+LIMIT 1
+
+--42. 1997 yılında en çok satış yapan çalışanımın ID,Ad soyad ****
+SELECT SUM(order_details.quantity), employees.employee_id, employees.first_name || ' ' || employees.last_name AS "Ad Soyad" FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE EXTRACT(YEAR FROM order_date) = 1997 
+GROUP BY "Ad Soyad", employees.employee_id
+ORDER BY SUM(order_details.quantity) DESC
+LIMIT 1
+--43. En pahalı ürünümün adı,fiyatı ve kategorisin adı nedir?
+SELECT product_name, unit_price, categories.category_name FROM products
+INNER JOIN categories ON products.category_id = categories.category_id
+ORDER BY unit_price DESC
+LIMIT 1
+--44. Siparişi alan personelin adı,soyadı, sipariş tarihi, sipariş ID. Sıralama sipariş tarihine göre
+SELECT employees.first_name, employees.last_name, order_date, order_id FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+ORDER BY order_date
+--45. SON 5 siparişimin ortalama fiyatı ve orderid nedir?
+select o.order_id as "orderid",avg(od.unit_price) as "ortalama_fiyat" from orders o
+INNER join order_details od on o.order_id = od.order_id
+group by o.order_id
+order by o.order_date desc
+limit 5
+--46. Ocak ayında satılan ürünlerimin adı ve kategorisinin adı ve toplam satış miktarı nedir?
+select  p.product_name as "Ürün Adı", c.category_name as "Kategori Adı",sum(od.quantity) as "Toplam Satış Miktarı" from orders o
+INNER join order_details od on o.order_id = od.order_id
+INNER join products p on od.product_id = p.product_id
+INNER join categories c on p.category_id = c.category_id
+where extract(month from o.order_date) = 01 -- İSTEDİĞİM TARİHİ ÇEK => EXTRACT
+group by p.product_name, c.category_name
+--47. Ortalama satış miktarımın üzerindeki satışlarım nelerdir?
+SELECT product_id, quantity FROM order_details
+WHERE quantity >( SELECT AVG(quantity) FROM order_details) 
+ORDER BY product_id
+---48. En çok satılan ürünümün(adet bazında) adı, kategorisinin adı ve tedarikçisinin adı
+
+--*******************************************
+--*********************************************
+
+--49. Kaç ülkeden müşterim var
+SELECT DISTINCT country FROM customers
+
+--50. 3 numaralı ID ye sahip çalışan (employee) son Ocak ayından BUGÜNE toplamda ne kadarlık ürün sattı?
+SELECT  employees.employee_id, employees.first_name || ' ' || employees.last_name AS "Ad Soyad",
+CAST(SUM(order_details.quantity * order_details.unit_price)AS DECIMAL (10,2)) AS "Toplam Ciro" FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN products ON order_details.product_id = products.product_id
+WHERE order_date > '1998-01-01' AND employees.employee_id = '3'
+GROUP BY employees.employee_id
+--51. 10248 nolu siparişte satılan ürünlerin adı, kategorisinin adı, adedi
+SELECT product_name, order_details.order_id, order_details.quantity, categories.category_name FROM products
+INNER JOIN categories ON products.category_id = categories.category_id
+INNER JOIN order_details ON products.product_id = order_details.product_id
+WHERE order_id = '10248'
+--52. 10248 nolu siparişin ürünlerinin adı , tedarikçi adı
+SELECT product_name, order_details.order_id, suppliers.company_name FROM products
+INNER JOIN suppliers ON products.supplier_id = suppliers.supplier_id
+INNER JOIN order_details ON products.product_id = order_details.product_id
+WHERE order_id = '10248'
+
+--53. 3 numaralı ID ye sahip çalışanın 1997 yılında sattığı ürünlerin adı ve adeti
+SELECT  employees.employee_id, products.product_name, order_date, order_details.product_id, order_details.quantity FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN products ON order_details.product_id = products.product_id
+WHERE EXTRACT(YEAR FROM order_date) = 1997 AND employees.employee_id = '3'
+
+--54. 1997 yılında bir defasinda en çok satış yapan çalışanımın ID,Ad soyad
+SELECT order_date, order_details.quantity, employees.employee_id, employees.first_name || ' ' || employees.last_name AS "Ad Soyad" FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE EXTRACT(YEAR FROM order_date) = 1997 
+ORDER BY order_details.quantity DESC
+LIMIT 1
+--55. 1997 yılında en çok satış yapan çalışanımın ID,Ad soyad ****
+SELECT SUM(order_details.quantity), employees.employee_id, employees.first_name || ' ' || employees.last_name AS "Ad Soyad" FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE EXTRACT(YEAR FROM order_date) = 1997 
+GROUP BY "Ad Soyad", employees.employee_id
+ORDER BY SUM(order_details.quantity) DESC
+LIMIT 1
+
+
+---56. En pahalı ürünümün adı,fiyatı ve kategorisin adı nedir?
+SELECT product_name, unit_price, categories.category_name FROM products
+INNER JOIN categories ON products.category_id = categories.category_id
+ORDER BY unit_price DESC
+LIMIT 1
+--57. Siparişi alan personelin adı,soyadı, sipariş tarihi, sipariş ID. Sıralama sipariş tarihine göre
+SELECT employees.first_name, employees.last_name, order_date, order_id FROM orders
+INNER JOIN employees ON orders.employee_id = employees.employee_id
+ORDER BY order_date
+--58. SON 5 siparişimin ortalama fiyatı ve orderid nedir?
+select o.order_id as "orderid",avg(od.unit_price) as "ortalama_fiyat" from orders o
+INNER join order_details od on o.order_id = od.order_id
+group by o.order_id
+order by o.order_date desc
+limit 5
+---59. Ocak ayında satılan ürünlerimin adı ve kategorisinin adı ve toplam satış miktarı nedir?
+
+select  p.product_name as "Ürün Adı", c.category_name as "Kategori Adı",sum(od.quantity) as "Toplam Satış Miktarı" from orders o
+INNER join order_details od on o.order_id = od.order_id
+INNER join products p on od.product_id = p.product_id
+INNER join categories c on p.category_id = c.category_id
+where extract(month from o.order_date) = 01 -- İSTEDİĞİM TARİHİ ÇEK => EXTRACT
+group by p.product_name, c.category_name
+
+--60. Ortalama satış miktarımın üzerindeki satışlarım nelerdir?
+SELECT product_id, quantity FROM order_details
+WHERE quantity >( SELECT AVG(quantity) FROM order_details) 
+ORDER BY product_id
+
+--61. En çok satılan ürünümün(adet bazında) adı, kategorisinin adı ve tedarikçisinin adı
+
+SELECT product_id, SUM(quantity) FROM order_details
+GROUP BY product_id
+ORDER BY SUM(quantity) DESC
+
+--*******************************************
+--*********************************************
+
+
+select categories.category_name, suppliers.company_name,SUM(quantity) as "Toplam Sipariş Miktarı" from products
+INNER JOIN categories ON products.category_id = categories.category_id
+INNER JOIN suppliers ON products.supplier_id = suppliers.supplier_id
+inner join order_details on products.product_id = order_details.product_id
+group by  categories.category_name, suppliers.company_name
+ORDER BY sum(quantity) desc
+LIMIT 1;
+
+select product_name,SUM(quantity) as "Toplam Sipariş Miktarı" from order_details od
+inner join products p on od.product_id = p.product_id
+group by product_name
+order by sum(quantity) desc;
+
+--62. Kaç ülkeden müşterim var
+SELECT country FROM customers
+GROUP BY country
+--63. Hangi ülkeden kaç müşterimiz var
+SELECT country, COUNT(country) FROM customers
+GROUP BY country
+--64. 3 numaralı ID ye sahip çalışan (employee) son Ocak ayından BUGÜNE toplamda ne kadarlık ürün sattı?
+SELECT orders.employee_id, SUM(unit_price*quantity) AS Total FROM order_details
+INNER JOIN orders ON order_details.order_id = orders.order_id
+WHERE order_date > '1998-01-01' AND employee_id = '3'
+GROUP BY orders.employee_id
+--64.SORGUYU ANLAMAYA YARDIMCI OLMAK İÇİN
+SELECT orders.employee_id,unit_price, quantity, orders.order_date FROM order_details
+INNER JOIN orders ON order_details.order_id = orders.order_id
+WHERE orders.employee_id = 3 AND order_date > '1998-01-01'
+--65. 10 numaralı ID ye sahip ürünümden son 3 ayda ne kadarlık ciro sağladım?
+SELECT product_id, SUM(unit_price * quantity) AS Total_Price FROM order_details
+INNER JOIN orders ON order_details.order_id = orders.order_id
+WHERE product_id = 10 AND
+orders.order_date > '1998-02-06'
+GROUP BY order_details.product_id
+--65. SORGUYA YARDIMCI OLMASI İÇİN
+SELECT order_details.product_id, order_date FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+WHERE product_id = 10 AND order_date > '1998-02-06' --İki where için parantez kullanılabilir
+GROUP BY product_id, orders.order_date
+ORDER BY order_date DESC
+
+SELECT order_date from orders
+ORDER BY order_date DESC
+
+--66. Hangi çalışan şimdiye kadar toplam kaç sipariş almış..?
+SELECT employee_id, SUM(order_details.quantity) FROM orders
+INNER JOIN order_details ON orders.order_id = order_details.order_id
+GROUP BY orders.employee_id 
+ORDER BY orders.employee_id
+
+--67. 91 müşterim var. Sadece 89’u sipariş vermiş. Sipariş vermeyen 2 kişiyi bulun
+SELECT * FROM customers
+LEFT JOIN orders ON customers.customer_id = orders.customer_id
+WHERE order_id IS NULL
+---68. Brazil’de bulunan müşterilerin Şirket Adı, TemsilciAdi, Adres, Şehir, Ülke bilgileri
+SELECT company_name, contact_name, address, city, country FROM customers
+WHERE country = 'Brazil'
+--69. Brezilya’da olmayan müşteriler
+SELECT * FROM customers
+WHERE country <> 'Brazil'
+--70. Ülkesi (Country) YA Spain, Ya France, Ya da Germany olan müşteriler
+SELECT * FROM customers
+WHERE country = 'Spain' OR country = 'France' OR country = 'Germany'
+--71. Faks numarasını bilmediğim müşteriler
+SELECT * FROM customers
+WHERE fax IS NULL
+--72. Londra’da ya da Paris’de bulunan müşterilerim
+SELECT * FROM customers
+WHERE city = 'London' OR city = 'Paris'
+--73. Hem Mexico D.F’da ikamet eden HEM DE ContactTitle bilgisi ‘owner’ olan müşteriler
+SELECT * FROM customers
+WHERE city = 'México D.F.' AND contact_title = 'Owner'
+
+
+--74. C ile başlayan ürünlerimin isimleri ve fiyatları
+SELECT product_name, unit_price FROM products
+WHERE product_name LIKE 'C%'
+--75. Adı (FirstName) ‘A’ harfiyle başlayan çalışanların (Employees); Ad, Soyad ve Doğum Tarihleri
+SELECT first_name, last_name, birth_date FROM employees
+WHERE first_name LIKE 'A%'
+--76. İsminde ‘RESTAURANT’ geçen müşterilerimin şirket adları
+SELECT UPPER(company_name) FROM customers
+WHERE company_name LIKE '%Restaurant%' --ILIKE küçük harf büyük harf hepsini getiriyor
+
+
+--77. 50$ ile 100$ arasında bulunan tüm ürünlerin adları ve fiyatları
+SELECT product_name, unit_price FROM products
+WHERE unit_price BETWEEN 50 AND 100
+--78. 1 temmuz 1996 ile 31 Aralık 1996 tarihleri arasındaki siparişlerin (Orders), SiparişID (OrderID) ve SiparişTarihi (OrderDate) bilgileri
+SELECT order_id, order_date FROM orders
+WHERE order_date BETWEEN '1996-07-01' AND '1996-12-31'
+--79. Ülkesi (Country) YA Spain, Ya France, Ya da Germany olan müşteriler
+SELECT * FROM customers
+WHERE country = 'Spain' OR country = 'France' OR country = 'Germany'
+--80. Faks numarasını bilmediğim müşteriler
+SELECT * FROM customers
+WHERE fax IS NULL
+--81. Müşterilerimi ülkeye göre sıralıyorum:
+SELECT * FROM customers
+ORDER BY country
+--82. Ürünlerimi en pahalıdan en ucuza doğru sıralama, sonuç olarak ürün adı ve fiyatını istiyoruz
+SELECT product_name, unit_price FROM products
+ORDER BY unit_price DESC
+---83. Ürünlerimi en pahalıdan en ucuza doğru sıralasın, ama stoklarını küçükten-büyüğe doğru göstersin sonuç olarak ürün adı ve fiyatını istiyoruz
+SELECT product_name, unit_price, units_in_stock FROM products
+ORDER BY unit_price DESC, units_in_stock 
+--84. 1 Numaralı kategoride kaç ürün vardır..?
+SELECT COUNT(category_id) FROM products
+WHERE category_id = 1
+--85. Kaç farklı ülkeye ihracat yapıyorum..?
+SELECT COUNT(country), country FROM customers
+WHERE country <> 'USA'
+GROUP BY country 
