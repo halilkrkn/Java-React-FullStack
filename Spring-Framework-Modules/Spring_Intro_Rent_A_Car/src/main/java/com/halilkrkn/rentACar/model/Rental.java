@@ -1,14 +1,15 @@
 package com.halilkrkn.rentACar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.util.List;
 
 @Entity
 @Data
-@Table(name = "Rental")
+@Table(name = "rental")
 public class Rental {
 
     @Id
@@ -27,12 +28,20 @@ public class Rental {
     @Column(name = "rental_price")
     private Double rentalPrice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
+
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<FuelLog> fuelLog;
+
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<DamageReport> damageReport;
 
 }

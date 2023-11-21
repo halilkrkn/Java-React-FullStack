@@ -1,5 +1,6 @@
 package com.halilkrkn.rentACar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "Customers")
+@Table(name = "customers    ")
 public class Customer {
 
     @Id
@@ -29,5 +30,13 @@ public class Customer {
 
     @Column(name = "address")
     private String address;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Rental> rentals;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Reservation> reservations;
 
 }
