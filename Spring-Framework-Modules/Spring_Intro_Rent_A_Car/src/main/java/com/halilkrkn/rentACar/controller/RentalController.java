@@ -1,55 +1,31 @@
 package com.halilkrkn.rentACar.controller;
 
-import com.halilkrkn.rentACar.model.Rental;
-import com.halilkrkn.rentACar.repository.RentalRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.halilkrkn.rentACar.service.abstracts.RentalService;
+import com.halilkrkn.rentACar.service.dto.rental.AddRentalRequest;
+import com.halilkrkn.rentACar.service.dto.rental.UpdateRentalRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/rentals")
+@RequiredArgsConstructor
 public class RentalController {
 
-    @Autowired
-    RentalRepository rentalRepository;
+    private final RentalService rentalService;
 
-    @GetMapping
-    public List<Rental> getAllRentals() {
-        return rentalRepository.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Rental getRentalById(@PathVariable Integer id) {
-        return rentalRepository.findById(id).orElse(null);
+    @PostMapping("/add")
+    public void add(@RequestBody AddRentalRequest rental) {
+        rentalService.add(rental);
     }
 
     @PostMapping
-    public Rental createRental(@RequestBody Rental rental) {
-        return rentalRepository.save(rental);
+    public void update(@PathVariable Integer id, @RequestBody UpdateRentalRequest rental) {
+        rentalService.update(id, rental);
     }
 
-    @PutMapping("/{id}")
-    public Rental updateRental(@PathVariable Integer id, @RequestBody Rental rental) {
-        Rental existingRental = rentalRepository.findById(id).orElse(null);
-        if (existingRental == null) {
-            return null;
-        }
-
-        existingRental.setReservationDate(rental.getReservationDate());
-        existingRental.setRentalDate(rental.getRentalDate());
-        existingRental.setReturnDate(rental.getReturnDate());
-        existingRental.setRentalPrice(rental.getRentalPrice());
-        existingRental.setCustomer(rental.getCustomer());
-        existingRental.setVehicle(rental.getVehicle());
-        existingRental.setFuelLog(rental.getFuelLog());
-        existingRental.setDamageReport(rental.getDamageReport());
-
-        return rentalRepository.save(existingRental);
+    @DeleteMapping
+    public void delete(@PathVariable Integer id) {
+        rentalService.delete(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteRental(@PathVariable Integer id) {
-        rentalRepository.deleteById(id);
-    }
 }

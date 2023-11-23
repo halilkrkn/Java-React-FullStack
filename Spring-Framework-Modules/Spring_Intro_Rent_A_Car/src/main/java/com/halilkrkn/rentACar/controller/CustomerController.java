@@ -1,52 +1,32 @@
 package com.halilkrkn.rentACar.controller;
 
-import com.halilkrkn.rentACar.model.Customer;
-import com.halilkrkn.rentACar.repository.CustomerRepository;
+import com.halilkrkn.rentACar.service.abstracts.CustomerService;
+import com.halilkrkn.rentACar.service.dto.customer.AddCustomerRequest;
+import com.halilkrkn.rentACar.service.dto.customer.UpdateCustomerRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/customers")
+@RequiredArgsConstructor
 public class CustomerController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    private final CustomerService customerService;
 
-    @GetMapping
-    public List<Customer> getAllCustomers() {
-        return customerRepository.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public Customer getCustomerById(@PathVariable Integer id) {
-        return customerRepository.findById(id).orElse(null);
+    @PostMapping("/add")
+    public void add(@RequestBody AddCustomerRequest customer) {
+        customerService.add(customer);
     }
 
     @PostMapping
-    public Customer createCustomer(@RequestBody Customer customer) {
-        return customerRepository.save(customer);
+    public void update(@PathVariable Integer id, @RequestBody UpdateCustomerRequest customer) {
+        customerService.update(id, customer);
     }
 
-    @PutMapping("/{id}")
-    public Customer updateCustomer(@PathVariable Integer id, @RequestBody Customer customer) {
-        Customer existingCustomer = customerRepository.findById(id).orElse(null);
-        if (existingCustomer == null) {
-            return null;
-        }
-
-        existingCustomer.setFirstName(customer.getFirstName());
-        existingCustomer.setLastName(customer.getLastName());
-        existingCustomer.setPhoneNumber(customer.getPhoneNumber());
-        existingCustomer.setEmail(customer.getEmail());
-        existingCustomer.setAddress(customer.getAddress());
-
-        return customerRepository.save(existingCustomer);
+    @DeleteMapping
+    public void delete(@PathVariable Integer id) {
+        customerService.delete(id);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteCustomer(@PathVariable Integer id) {
-        customerRepository.deleteById(id);
-    }
 }
