@@ -1,53 +1,31 @@
 package com.halilkrkn.rentACar.controller;
 
-import com.halilkrkn.rentACar.model.DamageReport;
-import com.halilkrkn.rentACar.repository.DamageReportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.halilkrkn.rentACar.service.abstracts.DamageReportService;
+import com.halilkrkn.rentACar.service.dto.damageReport.AddDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.UpdateDamageReportRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/damagereports")
+@RequiredArgsConstructor
 public class DamageReportController {
 
-    @Autowired
-    private DamageReportRepository damageReportRepository;
+    private final DamageReportService damageReportService;
 
-    @GetMapping
-    public List<DamageReport> getAllDamageReports() {
-        return damageReportRepository.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public DamageReport getDamageReportById(@PathVariable Integer id) {
-        return damageReportRepository.findById(id).orElse(null);
+    @PostMapping("/add")
+    public void add(@RequestBody AddDamageReportRequest damageReport) {
+        damageReportService.add(damageReport);
     }
 
     @PostMapping
-    public DamageReport createDamageReport(@RequestBody DamageReport damageReport) {
-        return damageReportRepository.save(damageReport);
+    public void update(@PathVariable Integer id, @RequestBody UpdateDamageReportRequest damageReport) {
+        damageReportService.update(id, damageReport);
     }
 
-    @PutMapping("/{id}")
-    public DamageReport updateDamageReport(@PathVariable Integer id, @RequestBody DamageReport damageReport) {
-        DamageReport existingDamageReport = damageReportRepository.findById(id).orElse(null);
-        if (existingDamageReport == null) {
-            return null;
-        }
-
-        existingDamageReport.setDamageDescription(damageReport.getDamageDescription());
-        existingDamageReport.setEstimatedRepairCost(damageReport.getEstimatedRepairCost());
-        existingDamageReport.setReportDate(damageReport.getReportDate());
-        existingDamageReport.setVehicle(damageReport.getVehicle());
-        existingDamageReport.setRental(damageReport.getRental());
-
-        return damageReportRepository.save(existingDamageReport);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deleteDamageReport(@PathVariable Integer id) {
-        damageReportRepository.deleteById(id);
+    @DeleteMapping
+    public void delete(@PathVariable Integer id) {
+        damageReportService.delete(id);
     }
 }
 
