@@ -1,4 +1,4 @@
-package com.halilkrkn.rentACar.service.dto.fuelLog;
+package com.halilkrkn.rentACar.service.dto.fuelLog.request;
 
 import com.halilkrkn.rentACar.model.Rental;
 import com.halilkrkn.rentACar.model.Vehicle;

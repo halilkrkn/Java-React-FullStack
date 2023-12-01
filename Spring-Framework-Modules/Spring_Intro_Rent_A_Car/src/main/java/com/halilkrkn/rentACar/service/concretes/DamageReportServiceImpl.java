@@ -3,10 +3,13 @@ package com.halilkrkn.rentACar.service.concretes;
 import com.halilkrkn.rentACar.model.DamageReport;
 import com.halilkrkn.rentACar.repository.DamageReportRepository;
 import com.halilkrkn.rentACar.service.abstracts.DamageReportService;
-import com.halilkrkn.rentACar.service.dto.damageReport.AddDamageReportRequest;
-import com.halilkrkn.rentACar.service.dto.damageReport.UpdateDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.request.AddDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.request.UpdateDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.response.GetListDamageReportResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -49,5 +52,15 @@ public class DamageReportServiceImpl implements DamageReportService {
     @Override
     public void delete(Integer id) {
         damageReportRepository.deleteById(id);
+    }
+
+    @Override
+    public List<GetListDamageReportResponse> findByDamageReportEstimatedRepairCost(Double estimatedRepairCost) {
+        return damageReportRepository.findByEstimatedRepairCost(estimatedRepairCost);
+    }
+
+    @Override
+    public List<DamageReport> findByDamageDescription(String damageDescription) {
+        return damageReportRepository.findByDamageDescription(damageDescription);
     }
 }

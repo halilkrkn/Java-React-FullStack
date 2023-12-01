@@ -1,4 +1,4 @@
-package com.halilkrkn.rentACar.service.dto.reservation;
+package com.halilkrkn.rentACar.service.dto.reservation.request;
 
 import com.halilkrkn.rentACar.model.Customer;
 import com.halilkrkn.rentACar.model.Vehicle;

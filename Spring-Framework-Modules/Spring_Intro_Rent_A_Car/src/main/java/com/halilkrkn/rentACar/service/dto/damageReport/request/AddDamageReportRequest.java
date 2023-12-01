@@ -1,4 +1,4 @@
-package com.halilkrkn.rentACar.service.dto.damageReport;
+package com.halilkrkn.rentACar.service.dto.damageReport.request;
 
 import com.halilkrkn.rentACar.model.Rental;
 import com.halilkrkn.rentACar.model.Vehicle;
@@ -13,8 +13,7 @@ import java.sql.Timestamp;
  */
 @Value
 @Data
-public class UpdateDamageReportRequest implements Serializable {
-    Integer reportId;
+public class AddDamageReportRequest implements Serializable {
     String damageDescription;
     Double estimatedRepairCost;
     Timestamp reportDate;

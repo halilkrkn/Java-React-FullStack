@@ -1,4 +1,4 @@
-package com.halilkrkn.rentACar.service.dto.vehicle;
+package com.halilkrkn.rentACar.service.dto.vehicle.request;
 
 import lombok.Data;
 import lombok.Value;
@@ -10,7 +10,8 @@ import java.io.Serializable;
  */
 @Value
 @Data
-public class AddVehicleRequest implements Serializable {
+public class UpdateVehicleRequest implements Serializable {
+    Integer vehicleId;
     String brand;
     String model;
     Integer years;
