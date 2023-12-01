@@ -3,10 +3,13 @@ package com.halilkrkn.rentACar.service.concretes;
 import com.halilkrkn.rentACar.model.Vehicle;
 import com.halilkrkn.rentACar.repository.VehicleRepository;
 import com.halilkrkn.rentACar.service.abstracts.VehicleService;
-import com.halilkrkn.rentACar.service.dto.vehicle.AddVehicleRequest;
-import com.halilkrkn.rentACar.service.dto.vehicle.UpdateVehicleRequest;
+import com.halilkrkn.rentACar.service.dto.vehicle.request.AddVehicleRequest;
+import com.halilkrkn.rentACar.service.dto.vehicle.request.UpdateVehicleRequest;
+import com.halilkrkn.rentACar.service.dto.vehicle.response.GetListVehicleResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -49,4 +52,16 @@ public class VehicleServiceImpl implements VehicleService {
     public void delete(Integer id) {
         vehicleRepository.deleteById(id);
     }
+
+    @Override
+    public List<GetListVehicleResponse> findByPlateNumber(String plateNumber) {
+        return vehicleRepository.findByPlateNumber(plateNumber);
+    }
+
+    @Override
+    public List<Vehicle> findByBrand(String brand) {
+        return vehicleRepository.findByBrand(brand);
+    }
+
+
 }

@@ -3,10 +3,13 @@ package com.halilkrkn.rentACar.service.concretes;
 import com.halilkrkn.rentACar.model.MaintenanceRecord;
 import com.halilkrkn.rentACar.repository.MaintenanceRecordRepository;
 import com.halilkrkn.rentACar.service.abstracts.MaintenanceRecordService;
-import com.halilkrkn.rentACar.service.dto.maintanenceRecord.AddMaintenanceRecordRequest;
-import com.halilkrkn.rentACar.service.dto.maintanenceRecord.UpdateMaintenanceRecordRequest;
+import com.halilkrkn.rentACar.service.dto.maintanenceRecord.request.AddMaintenanceRecordRequest;
+import com.halilkrkn.rentACar.service.dto.maintanenceRecord.request.UpdateMaintenanceRecordRequest;
+import com.halilkrkn.rentACar.service.dto.maintanenceRecord.response.GetListMaintenanceRecordResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +46,15 @@ public class MaintenanceRecordServiceImpl implements MaintenanceRecordService {
     @Override
     public void delete(Integer id) {
         maintenanceRecordRepository.deleteById(id);
+    }
+
+    @Override
+    public List<MaintenanceRecord> findByMaintenanceType(String maintenanceType) {
+        return maintenanceRecordRepository.findByMaintenanceType(maintenanceType);
+    }
+
+    @Override
+    public List<GetListMaintenanceRecordResponse> findByMaintenanceRecordMaintenanceCost(Double maintenanceCost) {
+        return maintenanceRecordRepository.findByMaintenanceCost(maintenanceCost);
     }
 }

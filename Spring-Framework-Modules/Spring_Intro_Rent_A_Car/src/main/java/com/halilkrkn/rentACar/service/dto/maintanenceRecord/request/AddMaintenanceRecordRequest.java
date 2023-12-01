@@ -1,4 +1,4 @@
-package com.halilkrkn.rentACar.service.dto.maintanenceRecord;
+package com.halilkrkn.rentACar.service.dto.maintanenceRecord.request;
 
 import com.halilkrkn.rentACar.model.Vehicle;
 import lombok.Data;

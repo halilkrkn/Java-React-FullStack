@@ -1,10 +1,14 @@
 package com.halilkrkn.rentACar.controller;
 
+import com.halilkrkn.rentACar.model.FuelLog;
 import com.halilkrkn.rentACar.service.abstracts.FuelLogService;
-import com.halilkrkn.rentACar.service.dto.fuelLog.AddFuelLogRequest;
-import com.halilkrkn.rentACar.service.dto.fuelLog.UpdateFuelLogRequest;
+import com.halilkrkn.rentACar.service.dto.fuelLog.request.AddFuelLogRequest;
+import com.halilkrkn.rentACar.service.dto.fuelLog.request.UpdateFuelLogRequest;
+import com.halilkrkn.rentACar.service.dto.fuelLog.response.GetListFuelLogResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/fuellogs")
@@ -26,6 +30,16 @@ public class FuelLogController {
     @DeleteMapping
     public void delete(@PathVariable Integer id) {
         fuelLogService.delete(id);
+    }
+
+    @GetMapping("/fuel-quantity")
+    public List<GetListFuelLogResponse> findByFuelLogFuelQuantity(@RequestParam Double fuelQuantity) {
+        return fuelLogService.findByFuelLogFuelQuantity(fuelQuantity);
+    }
+
+    @GetMapping("/fuel-type")
+    public List<FuelLog> findByFuelLogFuelType(@RequestParam String fuelType) {
+        return fuelLogService.findByFuelLogFuelType(fuelType);
     }
 }
 

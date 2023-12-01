@@ -1,10 +1,15 @@
 package com.halilkrkn.rentACar.controller;
 
+import com.halilkrkn.rentACar.model.Rental;
 import com.halilkrkn.rentACar.service.abstracts.RentalService;
-import com.halilkrkn.rentACar.service.dto.rental.AddRentalRequest;
-import com.halilkrkn.rentACar.service.dto.rental.UpdateRentalRequest;
+import com.halilkrkn.rentACar.service.dto.rental.request.AddRentalRequest;
+import com.halilkrkn.rentACar.service.dto.rental.request.UpdateRentalRequest;
+import com.halilkrkn.rentACar.service.dto.rental.response.GetListRentalDataResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @RequestMapping("/rentals")
@@ -26,6 +31,16 @@ public class RentalController {
     @DeleteMapping
     public void delete(@PathVariable Integer id) {
         rentalService.delete(id);
+    }
+
+    @GetMapping("/rental-price")
+    public List<Rental> findByRentalPrice(@RequestParam Double rentalPrice) {
+        return rentalService.findByRentalPrice(rentalPrice);
+    }
+
+    @GetMapping("/rental-date")
+    public List<GetListRentalDataResponse> findByRentalDate(@RequestParam Timestamp rentalDate) {
+        return rentalService.findByRentalDate(rentalDate);
     }
 
 }

@@ -3,10 +3,13 @@ package com.halilkrkn.rentACar.service.concretes;
 import com.halilkrkn.rentACar.model.FuelLog;
 import com.halilkrkn.rentACar.repository.FuelLogRepository;
 import com.halilkrkn.rentACar.service.abstracts.FuelLogService;
-import com.halilkrkn.rentACar.service.dto.fuelLog.AddFuelLogRequest;
-import com.halilkrkn.rentACar.service.dto.fuelLog.UpdateFuelLogRequest;
+import com.halilkrkn.rentACar.service.dto.fuelLog.request.AddFuelLogRequest;
+import com.halilkrkn.rentACar.service.dto.fuelLog.request.UpdateFuelLogRequest;
+import com.halilkrkn.rentACar.service.dto.fuelLog.response.GetListFuelLogResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -46,5 +49,15 @@ public class FuelLogServiceImpl implements FuelLogService {
     @Override
     public void delete(Integer id) {
         fuelLogRepository.deleteById(id);
+    }
+
+    @Override
+    public List<GetListFuelLogResponse> findByFuelLogFuelQuantity(Double fuelQuantity) {
+        return fuelLogRepository.findByFuelQuantity(fuelQuantity);
+    }
+
+    @Override
+    public List<FuelLog> findByFuelLogFuelType(String fuelType) {
+        return fuelLogRepository.findByFuelType(fuelType);
     }
 }

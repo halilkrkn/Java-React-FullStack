@@ -1,4 +1,4 @@
-package com.halilkrkn.rentACar.service.dto.customer;
+package com.halilkrkn.rentACar.service.dto.customer.request;
 
 import lombok.Data;
 import lombok.Value;
@@ -10,7 +10,8 @@ import java.io.Serializable;
  */
 @Value
 @Data
-public class AddCustomerRequest implements Serializable {
+public class UpdateCustomerRequest implements Serializable {
+    Integer customerId;
     String firstName;
     String lastName;
     String phoneNumber;

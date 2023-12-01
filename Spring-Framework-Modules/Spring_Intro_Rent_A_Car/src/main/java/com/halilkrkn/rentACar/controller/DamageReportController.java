@@ -1,10 +1,14 @@
 package com.halilkrkn.rentACar.controller;
 
+import com.halilkrkn.rentACar.model.DamageReport;
 import com.halilkrkn.rentACar.service.abstracts.DamageReportService;
-import com.halilkrkn.rentACar.service.dto.damageReport.AddDamageReportRequest;
-import com.halilkrkn.rentACar.service.dto.damageReport.UpdateDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.request.AddDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.request.UpdateDamageReportRequest;
+import com.halilkrkn.rentACar.service.dto.damageReport.response.GetListDamageReportResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/damagereports")
@@ -26,6 +30,16 @@ public class DamageReportController {
     @DeleteMapping
     public void delete(@PathVariable Integer id) {
         damageReportService.delete(id);
+    }
+
+    @GetMapping("/estimated-repair-cost")
+    public List<GetListDamageReportResponse> findByDamageReportEstimatedRepairCost(@RequestParam Double estimatedRepairCost) {
+        return damageReportService.findByDamageReportEstimatedRepairCost(estimatedRepairCost);
+    }
+
+    @GetMapping("/damage-description")
+    public List<DamageReport> findByDamageDescription(@RequestParam String damageDescription) {
+        return damageReportService.findByDamageDescription(damageDescription);
     }
 }
 
