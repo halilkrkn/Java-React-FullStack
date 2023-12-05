@@ -55,6 +55,9 @@ public class MaintenanceRecordServiceImpl implements MaintenanceRecordService {
 
     @Override
     public List<GetListMaintenanceRecordResponse> findByMaintenanceRecordMaintenanceCost(Double maintenanceCost) {
-        return maintenanceRecordRepository.findByMaintenanceCost(maintenanceCost);
+        return maintenanceRecordRepository.findByMaintenanceCost(maintenanceCost)
+                .stream()
+                .map((maintenanceRecord) -> new GetListMaintenanceRecordResponse(maintenanceRecord.getRecordId(), maintenanceRecord.getMaintenanceCost()))
+                .toList();
     }
 }

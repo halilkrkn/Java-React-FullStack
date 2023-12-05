@@ -55,7 +55,18 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public List<GetListVehicleResponse> findByPlateNumber(String plateNumber) {
-        return vehicleRepository.findByPlateNumber(plateNumber);
+        return vehicleRepository.findByPlateNumber(plateNumber)
+                .stream()
+                .map((vehicle) -> new GetListVehicleResponse(
+                        vehicle.getVehicleId(),
+                        vehicle.getBrand(),
+                        vehicle.getModel(),
+                        vehicle.getYears(),
+                        vehicle.getPlateNumber(),
+                        vehicle.getPrice(),
+                        vehicle.getStatus()
+                ))
+                .toList();
     }
 
     @Override

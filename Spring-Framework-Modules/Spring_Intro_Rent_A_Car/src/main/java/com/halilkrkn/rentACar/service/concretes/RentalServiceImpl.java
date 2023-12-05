@@ -56,6 +56,9 @@ public class RentalServiceImpl implements RentalService {
 
     @Override
     public List<GetListRentalDataResponse> findByRentalDate(Timestamp rentalDate) {
-        return rentalRepository.getAllByByRentalDate(rentalDate);
+        return rentalRepository.getAllByByRentalDate(rentalDate)
+                .stream()
+                .map((rental) -> new GetListRentalDataResponse(rental.getTransactionId(), rental.getRentalDate()))
+                .toList();
     }
 }

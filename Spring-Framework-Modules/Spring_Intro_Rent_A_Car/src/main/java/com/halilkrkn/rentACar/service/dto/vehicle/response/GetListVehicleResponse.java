@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class GetListVehicleResponse {
     private Integer vehicleId;
     private String brand;
