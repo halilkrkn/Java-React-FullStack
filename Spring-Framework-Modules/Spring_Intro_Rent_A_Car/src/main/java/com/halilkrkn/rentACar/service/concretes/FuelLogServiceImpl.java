@@ -53,7 +53,10 @@ public class FuelLogServiceImpl implements FuelLogService {
 
     @Override
     public List<GetListFuelLogResponse> findByFuelLogFuelQuantity(Double fuelQuantity) {
-        return fuelLogRepository.findByFuelQuantity(fuelQuantity);
+        return fuelLogRepository.findByFuelQuantity(fuelQuantity)
+                .stream()
+                .map((fuelLog) -> new GetListFuelLogResponse(fuelLog.getLogId(), fuelLog.getFuelQuantity()))
+                .toList();
     }
 
     @Override

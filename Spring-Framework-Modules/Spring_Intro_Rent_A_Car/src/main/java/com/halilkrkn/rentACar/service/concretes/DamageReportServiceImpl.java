@@ -56,7 +56,10 @@ public class DamageReportServiceImpl implements DamageReportService {
 
     @Override
     public List<GetListDamageReportResponse> findByDamageReportEstimatedRepairCost(Double estimatedRepairCost) {
-        return damageReportRepository.findByEstimatedRepairCost(estimatedRepairCost);
+        return damageReportRepository.findByEstimatedRepairCost(estimatedRepairCost)
+                .stream()
+                .map((damageReport) -> new GetListDamageReportResponse(damageReport.getReportId(), damageReport.getEstimatedRepairCost()))
+                .toList();
     }
 
     @Override

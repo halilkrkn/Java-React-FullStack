@@ -57,7 +57,11 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<GetListReservationResponse> findByReservationTotalPrice(Double reservationTotalPrice) {
-        return reservationRepository.findByReservationTotalPrice(reservationTotalPrice);
+        return reservationRepository.findByReservationTotalPrice(reservationTotalPrice)
+                .stream()
+                .map((reservation) -> new GetListReservationResponse(reservation.getReservationId(), reservation.getReservationTotalPrice(),
+                        reservation.getCustomer(), reservation.getVehicle()))
+                .toList();
     }
 
     @Override

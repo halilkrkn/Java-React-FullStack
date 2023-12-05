@@ -48,14 +48,22 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.deleteById(id);
     }
 
+
+    // Buradda Stream api kullanarak mapper işlemleri yapılıyor.
     @Override
     public List<GetListCustomerResponse> findByCustomerFirstName(String name) {
-        return customerRepository.findByCustomerFirstName(name);
+        return customerRepository.findByCustomerFirstName(name)
+                .stream()
+                .map((customer) -> new GetListCustomerResponse(customer.getCustomerId(), customer.getFirstName(), customer.getEmail()))
+                .toList();
     }
 
     @Override
     public List<GetListCustomerResponse> findByCustomerEmail(String email) {
-        return customerRepository.findByCustomerEmail(email);
+        return customerRepository.findByCustomerEmail(email)
+                .stream()
+                .map((customer) -> new GetListCustomerResponse(customer.getCustomerId(), customer.getFirstName(), customer.getEmail()))
+                .toList();
     }
 
     @Override
