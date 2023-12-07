@@ -26,6 +26,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     // Derived Query ile Email'e göre filtreleme
     List<Customer> findCustomerDTOByEmail(String email);
 
+    // Business Rule and Validation
     boolean existsByEmail(String email);
 
     boolean existsByPhoneNumber(String phoneNumber);
