@@ -19,5 +19,9 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
     @Query("SELECT new com.halilkrkn.rentACar.service.dto.rental.response.GetListRentalDataResponse(r.transactionId, r.rentalDate) FROM Rental r WHERE r.rentalDate = :rentalDate")
     List<GetListRentalDataResponse> getAllByByRentalDate(Timestamp rentalDate);
 
+    boolean existsByTransactionId(Integer transactionId);
+
+    boolean existsByRentalPrice(Double rentalPrice);
+
 }
 

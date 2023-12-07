@@ -12,8 +12,9 @@ public interface RentalService {
     void add(AddRentalRequest addRentalRequest);
     void update(Integer id, UpdateRentalRequest updateRentalRequest);
     void delete(Integer id);
-
     List<Rental> findByRentalPrice(Double rentalPrice);
-
     List<GetListRentalDataResponse> findByRentalDate(Timestamp rentalDate);
+
+    Rental findById(Integer id);
+
 }

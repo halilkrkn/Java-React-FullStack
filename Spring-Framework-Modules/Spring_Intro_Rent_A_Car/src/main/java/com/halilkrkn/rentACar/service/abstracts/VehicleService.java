@@ -11,8 +11,7 @@ public interface VehicleService {
     void add(AddVehicleRequest addVehicleRequest);
     void update(Integer id, UpdateVehicleRequest updateVehicleRequest);
     void delete(Integer id);
-
     List<GetListVehicleResponse> findByPlateNumber(String plateNumber);
-
     List<Vehicle> findByBrand(String brand);
+    Vehicle findById(Integer id);
 }

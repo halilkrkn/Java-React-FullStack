@@ -18,5 +18,8 @@ public interface DamageReportRepository extends JpaRepository<DamageReport, Inte
     // JPQL ile
     @Query("SELECT new com.halilkrkn.rentACar.service.dto.damageReport.response.GetListDamageReportResponse(d.reportId, d.estimatedRepairCost) FROM DamageReport d WHERE d.estimatedRepairCost = :estimatedRepairCost")
     List<GetListDamageReportResponse> findByEstimatedRepairCost(Double estimatedRepairCost);
+
+    boolean existsByReportId(Integer reportId);
+    boolean existsByDamageDescription(String damageDescription);
 }
 

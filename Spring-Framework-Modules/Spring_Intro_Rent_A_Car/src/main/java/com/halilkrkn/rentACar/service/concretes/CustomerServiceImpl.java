@@ -20,6 +20,12 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest addCustomerRequest) {
+        if (customerRepository.existsByEmail(addCustomerRequest.getEmail())) {
+            throw new RuntimeException("Email already exists");
+        }
+        if (customerRepository.existsByPhoneNumber(addCustomerRequest.getPhoneNumber())) {
+            throw new RuntimeException("Phone number already exists");
+        }
         Customer customer = new Customer();
         customer.setFirstName(addCustomerRequest.getFirstName());
         customer.setLastName(addCustomerRequest.getLastName());
@@ -33,6 +39,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void update(Integer id, UpdateCustomerRequest updateCustomerRequest) {
 
+        if(!customerRepository.existsByCustomerId(id)){
+            throw new RuntimeException("Customer not found");
+        }
         Customer customer = customerRepository.findById(id).orElseThrow();
         customer.setFirstName(updateCustomerRequest.getFirstName());
         customer.setLastName(updateCustomerRequest.getLastName());
@@ -75,4 +84,10 @@ public class CustomerServiceImpl implements CustomerService {
     public List<Customer> findCustomerDTOByEmail(String email) {
         return customerRepository.findCustomerDTOByEmail(email);
     }
+
+    @Override
+    public Customer findById(Integer id) {
+        return customerRepository.findById(id).orElseThrow();
+    }
+
 }

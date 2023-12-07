@@ -19,5 +19,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Query("SELECT new com.halilkrkn.rentACar.service.dto.reservation.response.GetListReservationResponse(r.reservationId, r.totalPrice) FROM Reservation r WHERE r.totalPrice = :reservationTotalPrice")
     List<GetListReservationResponse> findByReservationTotalPrice(Double reservationTotalPrice);
 
+    boolean existsByReservationId(Integer reservationId);
+
+    boolean existsByTotalPrice(Double totalPrice);
+
 }
 

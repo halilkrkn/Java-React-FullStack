@@ -5,6 +5,7 @@ import com.halilkrkn.rentACar.service.abstracts.ReservationService;
 import com.halilkrkn.rentACar.service.dto.reservation.request.AddReservationRequest;
 import com.halilkrkn.rentACar.service.dto.reservation.request.UpdateReservationRequest;
 import com.halilkrkn.rentACar.service.dto.reservation.response.GetListReservationResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,12 @@ public class ReservationController {
     private final ReservationService reservationService;
 
     @PostMapping("/add")
-    public void add(@RequestBody AddReservationRequest reservation) {
+    public void add(@RequestBody @Valid AddReservationRequest reservation) {
         reservationService.add(reservation);
     }
 
     @PostMapping
-    public void update(@PathVariable Integer id, @RequestBody UpdateReservationRequest reservation) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid UpdateReservationRequest reservation) {
         reservationService.update(id, reservation);
     }
 

@@ -5,6 +5,7 @@ import com.halilkrkn.rentACar.service.abstracts.RentalService;
 import com.halilkrkn.rentACar.service.dto.rental.request.AddRentalRequest;
 import com.halilkrkn.rentACar.service.dto.rental.request.UpdateRentalRequest;
 import com.halilkrkn.rentACar.service.dto.rental.response.GetListRentalDataResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,12 @@ public class RentalController {
     private final RentalService rentalService;
 
     @PostMapping("/add")
-    public void add(@RequestBody AddRentalRequest rental) {
+    public void add(@RequestBody @Valid AddRentalRequest rental) {
         rentalService.add(rental);
     }
 
     @PostMapping
-    public void update(@PathVariable Integer id, @RequestBody UpdateRentalRequest rental) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid UpdateRentalRequest rental) {
         rentalService.update(id, rental);
     }
 

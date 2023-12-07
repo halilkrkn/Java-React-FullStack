@@ -15,4 +15,6 @@ public interface FuelLogService {
     List<GetListFuelLogResponse> findByFuelLogFuelQuantity(Double fuelQuantity);
 
     List<FuelLog> findByFuelLogFuelType(String fuelType);
+
+    FuelLog findById(Integer id);
 }

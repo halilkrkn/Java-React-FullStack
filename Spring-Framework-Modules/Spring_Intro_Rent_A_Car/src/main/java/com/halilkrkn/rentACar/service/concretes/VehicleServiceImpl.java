@@ -21,6 +21,10 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void add(AddVehicleRequest addVehicleRequest) {
 
+        if (vehicleRepository.existsByPlateNumber(addVehicleRequest.getPlateNumber())) {
+            throw new RuntimeException("Plate number already exists");
+        }
+
         Vehicle vehicle = new Vehicle();
         vehicle.setBrand(addVehicleRequest.getBrand());
         vehicle.setModel(addVehicleRequest.getModel());
@@ -36,15 +40,18 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public void update(Integer id, UpdateVehicleRequest updateVehicleRequest) {
 
-            Vehicle vehicle = vehicleRepository.findById(id).orElseThrow();
-            vehicle.setBrand(updateVehicleRequest.getBrand());
-            vehicle.setModel(updateVehicleRequest.getModel());
-            vehicle.setYears(updateVehicleRequest.getYears());
-            vehicle.setPlateNumber(updateVehicleRequest.getPlateNumber());
-            vehicle.setPrice(updateVehicleRequest.getPrice());
-            vehicle.setStatus(updateVehicleRequest.getStatus());
+        if (!vehicleRepository.existsByVehicleId(id)) {
+            throw new RuntimeException("Vehicle not found");
+        }
+        Vehicle vehicle = vehicleRepository.findById(id).orElseThrow();
+        vehicle.setBrand(updateVehicleRequest.getBrand());
+        vehicle.setModel(updateVehicleRequest.getModel());
+        vehicle.setYears(updateVehicleRequest.getYears());
+        vehicle.setPlateNumber(updateVehicleRequest.getPlateNumber());
+        vehicle.setPrice(updateVehicleRequest.getPrice());
+        vehicle.setStatus(updateVehicleRequest.getStatus());
 
-            vehicleRepository.save(vehicle);
+        vehicleRepository.save(vehicle);
 
     }
 
@@ -72,6 +79,11 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> findByBrand(String brand) {
         return vehicleRepository.findByBrand(brand);
+    }
+
+    @Override
+    public Vehicle findById(Integer id) {
+        return vehicleRepository.findById(id).orElseThrow();
     }
 
 

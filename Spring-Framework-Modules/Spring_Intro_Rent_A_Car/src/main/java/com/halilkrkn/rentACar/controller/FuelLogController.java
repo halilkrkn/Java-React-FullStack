@@ -5,6 +5,7 @@ import com.halilkrkn.rentACar.service.abstracts.FuelLogService;
 import com.halilkrkn.rentACar.service.dto.fuelLog.request.AddFuelLogRequest;
 import com.halilkrkn.rentACar.service.dto.fuelLog.request.UpdateFuelLogRequest;
 import com.halilkrkn.rentACar.service.dto.fuelLog.response.GetListFuelLogResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,12 @@ public class FuelLogController {
     private final FuelLogService fuelLogService;
 
     @PostMapping("/add")
-    public void add(@RequestBody AddFuelLogRequest fuelLog) {
+    public void add(@RequestBody @Valid AddFuelLogRequest fuelLog) {
         fuelLogService.add(fuelLog);
     }
 
     @PostMapping
-    public void update(@PathVariable Integer id, @RequestBody UpdateFuelLogRequest fuelLog) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid UpdateFuelLogRequest fuelLog) {
         fuelLogService.update(id, fuelLog);
     }
 

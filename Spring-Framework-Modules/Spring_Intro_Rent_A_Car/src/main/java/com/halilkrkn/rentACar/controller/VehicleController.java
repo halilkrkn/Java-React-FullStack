@@ -5,6 +5,7 @@ import com.halilkrkn.rentACar.service.abstracts.VehicleService;
 import com.halilkrkn.rentACar.service.dto.vehicle.request.AddVehicleRequest;
 import com.halilkrkn.rentACar.service.dto.vehicle.request.UpdateVehicleRequest;
 import com.halilkrkn.rentACar.service.dto.vehicle.response.GetListVehicleResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,12 @@ public class VehicleController {
     private final VehicleService vehicleService;
 
     @PostMapping("/add")
-    public void add(@RequestBody AddVehicleRequest vehicle) {
+    public void add(@RequestBody @Valid AddVehicleRequest vehicle) {
         vehicleService.add(vehicle);
     }
 
     @PostMapping
-    public void update(@PathVariable Integer id, @RequestBody UpdateVehicleRequest vehicle) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid UpdateVehicleRequest vehicle) {
         vehicleService.update(id, vehicle);
     }
 

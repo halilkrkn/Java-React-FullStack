@@ -18,5 +18,8 @@ public interface MaintenanceRecordRepository extends JpaRepository<MaintenanceRe
     @Query("SELECT new com.halilkrkn.rentACar.service.dto.maintanenceRecord.response.GetListMaintenanceRecordResponse(m.recordId, m.maintenanceCost) FROM MaintenanceRecord m WHERE m.maintenanceCost = :maintenanceCost")
     List<GetListMaintenanceRecordResponse> findByMaintenanceCost(Double maintenanceCost);
 
+    boolean existsByRecordId(Integer recordId);
+
+    boolean existsByMaintenanceType(String maintenanceType);
 }
 

@@ -5,27 +5,26 @@ import com.halilkrkn.rentACar.service.abstracts.CustomerService;
 import com.halilkrkn.rentACar.service.dto.customer.request.AddCustomerRequest;
 import com.halilkrkn.rentACar.service.dto.customer.request.UpdateCustomerRequest;
 import com.halilkrkn.rentACar.service.dto.customer.response.GetListCustomerResponse;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/customers")
+@RequiredArgsConstructor
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
-    }
-
     @PostMapping("/add")
-    public void add(@RequestBody AddCustomerRequest customer) {
+    public void add(@RequestBody @Valid AddCustomerRequest customer) {
         customerService.add(customer);
     }
 
     @PostMapping
-    public void update(@PathVariable Integer id, @RequestBody UpdateCustomerRequest customer) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid UpdateCustomerRequest customer) {
         customerService.update(id, customer);
     }
 

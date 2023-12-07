@@ -1,6 +1,10 @@
 package com.halilkrkn.rentACar.service.dto.vehicle.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.io.Serializable;
@@ -8,13 +12,20 @@ import java.io.Serializable;
 /**
  * DTO for {@link com.halilkrkn.rentACar.model.Vehicle}
  */
-@Value
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddVehicleRequest implements Serializable {
-    String brand;
-    String model;
-    Integer years;
-    String plateNumber;
-    Double price;
-    String status;
+    @NotBlank(message = "Brand is mandatory")
+    private String brand;
+    @Min(value = 1900, message = "Year must be greater than 1900")
+    private String model;
+    @Min(value = 1900, message = "Year must be greater than 1900")
+    private Integer years;
+    @NotBlank(message = "Plate number is mandatory")
+    private String plateNumber;
+    @NotBlank(message = "Color is mandatory")
+    private Double price;
+    @NotBlank(message = "Color is mandatory")
+    private String status;
 }
