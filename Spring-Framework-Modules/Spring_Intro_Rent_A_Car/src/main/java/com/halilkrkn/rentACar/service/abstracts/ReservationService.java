@@ -17,4 +17,6 @@ public interface ReservationService {
 
     List<Reservation> findByReservationDate(Timestamp reservationDate);
 
+    Reservation findById(Integer id);
+
 }

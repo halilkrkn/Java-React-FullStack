@@ -5,6 +5,7 @@ import com.halilkrkn.rentACar.service.abstracts.MaintenanceRecordService;
 import com.halilkrkn.rentACar.service.dto.maintanenceRecord.request.AddMaintenanceRecordRequest;
 import com.halilkrkn.rentACar.service.dto.maintanenceRecord.request.UpdateMaintenanceRecordRequest;
 import com.halilkrkn.rentACar.service.dto.maintanenceRecord.response.GetListMaintenanceRecordResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,12 +19,12 @@ public class MaintenanceRecordController {
     private final MaintenanceRecordService maintenanceRecordService;
 
     @PostMapping("/add")
-    public void add(@RequestBody AddMaintenanceRecordRequest maintenanceRecord) {
+    public void add(@RequestBody @Valid AddMaintenanceRecordRequest maintenanceRecord) {
         maintenanceRecordService.add(maintenanceRecord);
     }
 
     @PostMapping
-    public void update(@PathVariable Integer id, @RequestBody UpdateMaintenanceRecordRequest maintenanceRecord) {
+    public void update(@PathVariable Integer id, @RequestBody @Valid UpdateMaintenanceRecordRequest maintenanceRecord) {
         maintenanceRecordService.update(id, maintenanceRecord);
     }
 

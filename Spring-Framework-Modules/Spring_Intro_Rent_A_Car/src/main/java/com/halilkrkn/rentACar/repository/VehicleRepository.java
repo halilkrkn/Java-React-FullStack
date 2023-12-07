@@ -17,5 +17,9 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
     // JPQL ile plateNumber alanına göre sorgu yapılıyor.
     @Query("SELECT new com.halilkrkn.rentACar.service.dto.vehicle.response.GetListVehicleResponse(v.vehicleId, v.brand, v.model, v.years, v.plateNumber, v.price, v.status) FROM Vehicle v WHERE v.plateNumber = :plateNumber")
     List<GetListVehicleResponse> findByPlateNumber(String plateNumber);
+
+    boolean existsByVehicleId(Integer vehicleId);
+
+    boolean existsByPlateNumber(String plateNumber);
 }
 

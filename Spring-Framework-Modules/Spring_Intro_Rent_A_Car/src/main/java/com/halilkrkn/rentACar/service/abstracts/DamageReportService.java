@@ -16,4 +16,6 @@ public interface DamageReportService {
 
     List<DamageReport> findByDamageDescription(String damageDescription);
 
+    DamageReport findById(Integer id);
+
 }

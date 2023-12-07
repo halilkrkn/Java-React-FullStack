@@ -1,8 +1,12 @@
 package com.halilkrkn.rentACar.service.concretes;
 
+import com.halilkrkn.rentACar.model.Customer;
 import com.halilkrkn.rentACar.model.Rental;
+import com.halilkrkn.rentACar.model.Vehicle;
 import com.halilkrkn.rentACar.repository.RentalRepository;
+import com.halilkrkn.rentACar.service.abstracts.CustomerService;
 import com.halilkrkn.rentACar.service.abstracts.RentalService;
+import com.halilkrkn.rentACar.service.abstracts.VehicleService;
 import com.halilkrkn.rentACar.service.dto.rental.request.AddRentalRequest;
 import com.halilkrkn.rentACar.service.dto.rental.request.UpdateRentalRequest;
 import com.halilkrkn.rentACar.service.dto.rental.response.GetListRentalDataResponse;
@@ -17,29 +21,41 @@ import java.util.List;
 public class RentalServiceImpl implements RentalService {
 
     private final RentalRepository rentalRepository;
+    private final VehicleService vehicleService;
+    private final CustomerService customerService;
+
     @Override
     public void add(AddRentalRequest addRentalRequest) {
+        if(rentalRepository.existsByRentalPrice(addRentalRequest.getRentalPrice())){
+            throw new RuntimeException("Rental price already exists");
+        }
         Rental rental = new Rental();
         rental.setReservationDate(addRentalRequest.getReservationDate());
         rental.setRentalDate(addRentalRequest.getRentalDate());
         rental.setReturnDate(addRentalRequest.getReturnDate());
         rental.setRentalPrice(addRentalRequest.getRentalPrice());
-        rental.setVehicle(addRentalRequest.getVehicle());
-        rental.setCustomer(addRentalRequest.getCustomer());
+        Vehicle vehicleId = vehicleService.findById(addRentalRequest.getVehicleId());
+        rental.setVehicle(vehicleId);
+        Customer customerId = customerService.findById(addRentalRequest.getCustomerId());
+        rental.setCustomer(customerId);
 
         rentalRepository.save(rental);
     }
 
     @Override
     public void update(Integer id, UpdateRentalRequest updateRentalRequest) {
-
+        if(!rentalRepository.existsByTransactionId(id)){
+            throw new RuntimeException("Rental not found");
+        }
         Rental rental = rentalRepository.findById(id).orElseThrow();
         rental.setReservationDate(updateRentalRequest.getReservationDate());
         rental.setRentalDate(updateRentalRequest.getRentalDate());
         rental.setReturnDate(updateRentalRequest.getReturnDate());
         rental.setRentalPrice(updateRentalRequest.getRentalPrice());
-        rental.setVehicle(updateRentalRequest.getVehicle());
-        rental.setCustomer(updateRentalRequest.getCustomer());
+        Vehicle vehicleId = vehicleService.findById(updateRentalRequest.getVehicleId());
+        rental.setVehicle(vehicleId);
+        Customer customerId = customerService.findById(updateRentalRequest.getCustomerId());
+        rental.setCustomer(customerId);
 
         rentalRepository.save(rental);
     }
@@ -60,5 +76,10 @@ public class RentalServiceImpl implements RentalService {
                 .stream()
                 .map((rental) -> new GetListRentalDataResponse(rental.getTransactionId(), rental.getRentalDate()))
                 .toList();
+    }
+
+    @Override
+    public Rental findById(Integer id) {
+        return rentalRepository.findById(id).orElseThrow();
     }
 }

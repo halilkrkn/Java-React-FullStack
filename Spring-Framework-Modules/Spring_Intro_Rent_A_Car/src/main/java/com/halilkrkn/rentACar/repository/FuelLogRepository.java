@@ -18,6 +18,8 @@ public interface FuelLogRepository extends JpaRepository<FuelLog, Integer> {
     @Query("SELECT new com.halilkrkn.rentACar.service.dto.fuelLog.response.GetListFuelLogResponse(f.logId, f.fuelType, f.fuelQuantity) FROM FuelLog f WHERE f.fuelQuantity = :fuelQuantity")
     List<GetListFuelLogResponse> findByFuelQuantity(Double fuelQuantity);
 
+    boolean existsByLogId(Integer logId);
+    boolean existsByFuelType(String fuelType);
 
 
 }

@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 public class GetListReservationResponse {
     private Integer reservationId;
     private Double reservationTotalPrice;
-    private GetListCustomerResponse customer;
-    private GetListVehicleResponse vehicle;
+//    private GetListCustomerResponse customer;
+//    private GetListVehicleResponse vehicle;
 }

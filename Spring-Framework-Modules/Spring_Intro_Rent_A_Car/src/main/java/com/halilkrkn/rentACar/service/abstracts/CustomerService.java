@@ -22,5 +22,6 @@ public interface CustomerService {
     List<Customer> findCustomerDTOByFirstName(String name);
     List<Customer> findCustomerDTOByEmail(String email);
 
+    Customer findById(Integer id);
 }
 

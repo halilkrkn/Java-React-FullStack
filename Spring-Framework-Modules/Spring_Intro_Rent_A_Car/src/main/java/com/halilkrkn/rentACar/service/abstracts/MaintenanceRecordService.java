@@ -16,4 +16,6 @@ public interface MaintenanceRecordService {
 
     List<GetListMaintenanceRecordResponse> findByMaintenanceRecordMaintenanceCost(Double maintenanceCost);
 
+    MaintenanceRecord findById(Integer id);
+
 }
