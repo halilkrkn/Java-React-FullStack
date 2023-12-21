@@ -1,0 +1,112 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* App.css dosyasında */
+
+.todo-app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: sans-serif;
+  min-height: 100vh;
+  background-color: #F2F2F2;
+}
+
+.app-title {
+  margin-top: 50px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.todo-input {
+  display: flex;
+  width: 500px;
+  margin-top: 30px;
+}
+
+.todo-input-field {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 16px;
+  width: 400px;
+}
+
+.todo-add-button {
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.todo-list {
+  width: 500px;
+  margin-top: 30px;
+  padding: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  margin-bottom: 10px;
+}
+
+.todo-checkbox {
+  margin-right: 10px;
+}
+
+.todo-text {
+  font-size: 16px;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #CCC;
+}
