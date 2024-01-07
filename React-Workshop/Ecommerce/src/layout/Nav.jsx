@@ -1,29 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import CartSummary from "./CartSummary";
-import {
-  DropdownMenu,
-  DropdownItem,
-  MenuMenu,
-  MenuItem,
-  Button,
-  Dropdown,
-  Menu,
-  Container,
-} from "semantic-ui-react";
+import { MenuMenu, MenuItem, Menu, Container } from "semantic-ui-react";
+import SignOut from "./SignOut";
+import SignIn from "./SignIn";
+import { Link, NavLink } from "react-router-dom";
 
 function Nav() {
+  const [isAuthenticated, SetIsAuthenticated] = useState(true);
+
+
+  const handleSignOut = () => {
+    SetIsAuthenticated(false);
+  };
+
+  const handleSignIn = () => {
+    SetIsAuthenticated(true);
+  };
+
   return (
     <div className="mTop">
-      <Menu inverted fixed="top" >
+      <Menu inverted fixed="top">
         <Container>
-          <MenuItem name="home" />
+          <MenuItem as={NavLink} to="/" name="home"/>
           <MenuItem name="messages" />
-
           <MenuMenu position="right">
             <CartSummary />
-            <MenuItem>
-              <Button primary>Sign Up</Button>
-            </MenuItem>
+            {isAuthenticated ? (
+              <SignIn signOut={handleSignOut} />
+            ) : (
+              <SignOut signIn={handleSignIn} />
+            )}
           </MenuMenu>
         </Container>
       </Menu>

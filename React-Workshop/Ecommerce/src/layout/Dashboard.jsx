@@ -4,6 +4,8 @@ import Nav from "./Nav";
 import Categories from "./Categories";
 import ProductList from "../pages/ProductList";
 import { GridRow, GridColumn, Grid, Image } from "semantic-ui-react";
+import { Link, Outlet } from "react-router-dom";
+import Root from "./Root";
 function Dashboard() {
   return (
     <div>
@@ -13,7 +15,7 @@ function Dashboard() {
             <Categories />
           </Grid.Column>
           <Grid.Column width={12}>
-            <ProductList />
+            <ProductList/>
           </Grid.Column>
         </Grid.Row>
       </Grid>

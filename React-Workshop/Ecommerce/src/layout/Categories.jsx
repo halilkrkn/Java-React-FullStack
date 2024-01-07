@@ -1,17 +1,24 @@
 import React from "react";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { MenuItem, Menu } from 'semantic-ui-react'
 function Categories() {
   return (
     <div>
       <Menu inverted pointing vertical>
         <MenuItem
-          name="home"
+          as={Link}
+          to ="/"
+          name="Home"
         />
         <MenuItem
-          name="messages"
+          as={Link}
+          to={"categories"}
+          name="Categories"
         />
         <MenuItem
-          name="friends"
+          as={Link}
+          to = "products"
+          name="Products"
         />
       </Menu>
     </div>
