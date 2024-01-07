@@ -1,25 +1,13 @@
 import React from "react";
-import { Button, Icon, Label } from "semantic-ui-react";
+import { Button, Container, Icon, Label } from "semantic-ui-react";
 import Nav from "./Nav";
 import Categories from "./Categories";
 import ProductList from "../pages/ProductList";
 import { GridRow, GridColumn, Grid, Image } from "semantic-ui-react";
 import { Link, Outlet } from "react-router-dom";
-import Root from "./Root";
 function Dashboard() {
   return (
-    <div>
-      <Grid>
-        <Grid.Row>
-          <Grid.Column width={4}>
-            <Categories />
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <ProductList/>
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    </div>
+   <div className="text-3xl bg-orange-400">Dashboard</div>
   );
 }
 

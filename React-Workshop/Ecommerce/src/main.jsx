@@ -20,16 +20,20 @@ import LogOut from "./pages/LogOut.jsx";
 import Category from "./pages/Category.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
 import CartDetail from "./pages/CartDetail.jsx";
+import { Provider } from "react-redux";
+import { configureStore } from "./store/configureStore.js";
+import store from "./app/store.js";
+import 'react-toastify/dist/ReactToastify.css';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route index element={<Dashboard />}/>
+      <Route index element={<Dashboard />} />
       <Route path="myInfo" element={<MyInfo />} />
       <Route path="signOut" element={<LogOut />} />
       <Route path="signIn" element={<SignIn />} />
       <Route path="register" element={<Register />} />
-      <Route path="cart" element={<CartDetail/>}/>
+      <Route path="cart" element={<CartDetail />} />
       <Route path="/categories" element={<Category />} />
       <Route path="products">
         <Route index element={<ProductList />} />
@@ -39,8 +43,10 @@ const router = createBrowserRouter(
   )
 );
 
+const stores = configureStore();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <Provider store={stores}>
+      <RouterProvider router={router} />
+    </Provider>
 );
