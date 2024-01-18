@@ -25,6 +25,12 @@ public class JwtService {
 
     private static final String SECRET_KEY = "A9pPomvZ5vkCC8OWRCkqrBn4k8EftWAxRG2enCUi0Xfzze7xEwrqmayQUF2btuo3mhOlMJR+Bo4OqMoZUOPuYg==";
 
+    private Key getSigningKey() {
+        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+        return Keys.hmacShaKeyFor(keyBytes);
+
+    }
+
     private Claims extractAllClaims(String token) {
         return Jwts
                 .parser()
@@ -34,11 +40,6 @@ public class JwtService {
                 .getPayload();
     }
 
-    private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
-
-    }
 
     // Başka bir yöntem
 //    public  <T> T extractClaim(String token, String claimName, Class<T> requiredType) {
@@ -53,20 +54,23 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
+    // Burada aslında JWT deki PAYLOAD kısmını alıyoruz.
+    // PAYLOAD kısmı JWT'nin içindeki bilgileri tutar.
+    // PAYLOAD kısmı BASE64 ile şifrelenmiştir.
+    // PAYLOAD kısmını almak için extractAllClaims() metodunu yazdık
     public String generateToken(
             Map<String,Object> extraClaims,
             UserDetails userDetails) {
         return  Jwts.builder()
-                .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() * 1000 * 60 * 24))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .claims(extraClaims) // Burada token'ına ekstra bilgiler ekliyoruz. Yani claims ile key value şeklinde ekstra bilgiler ekliyoruz.
+                .subject(userDetails.getUsername()) // Kullanıcı bilgilerini alıyoruz.
+                .issuedAt(new Date(System.currentTimeMillis())) // Burada token'ını oluşturulma tarihini veriyoruz.
+                .expiration(new Date(System.currentTimeMillis() * 1000 * 60 * 24))  // Burada token'ını süresini veriyoruz. Yani 24 saatlik süresi var.
+                .signWith(getSigningKey()) // Burada token'ını hangi anahtar ile imzalayacağını belirtiyoruz.
                 .compact();
     }
 
@@ -74,18 +78,18 @@ public class JwtService {
        return generateToken(Map.of(), userDetails);
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
-    }
 
+    // Burada kullanıcının token'ının süresi dolup dolmadığını test ediyoruz.
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
+    // Kullanıcının giriş yaparak sahip olduğumuz kullanıcı adıyla aynı olduğundan ve token'ının süresi dolmadığından emin olmak için bu metodu yazdık.
+    public Boolean isTokenValidate(String token, UserDetails userDetails) {
+        final String username = extractUsername(token);
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
-
-
 }
